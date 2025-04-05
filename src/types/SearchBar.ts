@@ -1,8 +1,8 @@
 export type Product = {
   id: string;
-  name: string;
+  title: string;
   price: number;
-  image: string;
+  thumbnail: string;
 };
 
 export type Suggestions = {

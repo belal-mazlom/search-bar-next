@@ -1,37 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import axios from "axios";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { debounce } from "@/utils";
+import { Product } from "@/types/SearchBar";
 import Suggestions from "./Suggestions";
 
 const SearchBar = () => {
   const [search, setSearch] = useState("");
-  const items = [
-    {
-      id: "1",
-      name: "Product 1",
-      price: 100,
-      image: "https://cdn.dummyjson.com/products/images/sports-accessories/Tennis%20Ball/thumbnail.png",
-    },
-    {
-      id: "2",
-      name: "Product 2",
-      price: 200,
-      image: "https://cdn.dummyjson.com/products/images/sports-accessories/Tennis%20Ball/thumbnail.png",
-    },
-    {
-      id: "3",
-      name: "Product 3",
-      price: 300,
-      image: "https://cdn.dummyjson.com/products/images/sports-accessories/Tennis%20Ball/thumbnail.png",
-    },
-    {
-      id: "4",
-      name: "Product 4",
-      price: 400,
-      image: "https://cdn.dummyjson.com/products/images/sports-accessories/Tennis%20Ball/thumbnail.png",
-    },
-  ];
+  const [items, setItems] = useState<Product[]>([]);
+
+  const fetchSearchResults = async (searchTerm: string) => {
+    if (!searchTerm.length) {
+      setItems([]);
+      return;
+    }
+
+    const response = await axios.get(
+      `https://dummyjson.com/products/search?q=${searchTerm}`
+    );
+    const items: Product[] = response.data.products;
+    setItems(items);
+  };
+
+  const debouncedSearch = useCallback(
+    debounce((term: string) => fetchSearchResults(term), 500),
+    []
+  );
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      debouncedSearch(search);
+    };
+    fetchItems();
+
+    return () => { debouncedSearch(''); };
+  }, [search, debouncedSearch]);
 
   return (
     <div className="relative py-2 px-4">
