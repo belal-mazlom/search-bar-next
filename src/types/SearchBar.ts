@@ -8,3 +8,7 @@ export type Product = {
 export type Suggestions = {
   items: Product[];
 };
+
+export type SuggestionItem = {
+  item: Product;
+};

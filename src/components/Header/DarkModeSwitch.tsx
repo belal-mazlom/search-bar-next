@@ -35,7 +35,7 @@ const DarkModeSwitch = ({ classes }: { classes?: string }) => {
   return (
     <button
       className={classNames(
-        "flex md:flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 cursor-pointer",
+        "flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 cursor-pointer",
         classes
       )}
       onClick={handleDarkModeSwitch}

@@ -1,12 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import { classNames } from "@/utils";
-import logo from "@/assets/images/logo.svg";
 
-const Navigation = () => {
+const Navigation = ({ classes }: { classes?: string }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigation = [
@@ -17,45 +15,34 @@ const Navigation = () => {
   ];
 
   return (
-    <nav>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <nav className={classes}>
+      <div className="mx-auto max-w-7xl hidden md:block">
         <div className="flex h-16 items-center justify-between">
-          <div className="shrink-0">
-            <Image
-              className="size-14"
-              src={logo}
-              alt="Your Company"
-              width={120}
-              height={120}
-            />
-          </div>
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
-              {navigation.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? "bg-slate-800 text-white"
-                      : "text-current hover:text-gray-100 hover:bg-slate-800",
-                    "rounded-md px-3 py-2 text-base font-medium"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
+          <div className="ml-10 flex items-center space-x-4 text-center">
+            {navigation.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className={classNames(
+                  item.current
+                    ? "bg-slate-800 text-white"
+                    : "text-current hover:text-gray-100 hover:bg-slate-800",
+                  "rounded-md px-3 py-2 text-base font-medium"
+                )}
+                aria-current={item.current ? "page" : undefined}
+              >
+                {item.name}
+              </a>
+            ))}
           </div>
         </div>
       </div>
 
       <div className="md:hidden w-full" id="mobile-menu">
-        <div className="absolute left-4 top-8 z-10">
+        <div className="">
           <button
             type="button"
-            className="-m-2.5 rounded-md p-2.5 text-gray-700 bg-gray-200"
+            className="rounded-md m-1 p-2.5 text-gray-700 bg-gray-200 dark:bg-gray-800 dark:text-gray-200"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             <span className="sr-only">Close menu</span>
@@ -71,7 +58,7 @@ const Navigation = () => {
             isMobileMenuOpen
               ? "opacity-100 bg-gray-900"
               : "opacity-0 pointer-events-none invisible",
-            "absolute top-24 left-0 w-full z-2 p-2 transition-opacity duration-300 ease-in-out",
+            "absolute top-20 left-0 w-full z-2 p-2 transition-opacity duration-300 ease-in-out",
             "space-y-1 px-2 pt-2 pb-3 sm:px-3 z-2"
           )}
         >
