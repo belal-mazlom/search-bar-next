@@ -1,5 +1,15 @@
-export function classNames(...classes: (string | undefined)[]) {
-  return classes.filter(Boolean).join(' ')
+export function classNames(...classes: (string | undefined | null | object)[]) {
+  return classes.map(cls => {
+    if (typeof cls === 'string') return cls;
+    if (cls === null || cls === undefined) return '';
+    const classes = Object.entries(cls)
+      .filter(([, value]) => value)
+      .map(([key]) => key)
+
+    if (!classes.length) return '';
+
+    return classes;
+  }).filter(Boolean).join(' ');
 }
 
 export function formatPrice(price: number) {
