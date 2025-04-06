@@ -39,6 +39,7 @@ const DarkModeSwitch = ({ classes }: { classes?: string }) => {
         classes
       )}
       onClick={handleDarkModeSwitch}
+      aria-label="Toggle dark mode"
     >
       {isDarkMode ? (
         <SunIcon className="w-5 h-5 text-gray-800 dark:text-gray-200" />

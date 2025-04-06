@@ -44,6 +44,7 @@ const Navigation = ({ classes }: { classes?: string }) => {
             type="button"
             className="rounded-md m-1 p-2.5 text-gray-700 bg-gray-200 dark:bg-gray-800 dark:text-gray-200"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle main menu"
           >
             <span className="sr-only">Close menu</span>
             {isMobileMenuOpen ? (
